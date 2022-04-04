@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_by_prizing"
+            android:icon="@drawable/ic_rupee_indian"
+            android:title="Membership Prizing" />
+       <!-- <item
+            android:id="@+id/nav_by_auction"
+            android:icon="@drawable/ic_auction"
+            android:title="Live Auction" />
+        <item
+            android:id="@+id/nav_by_addcontract"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Add Contract" />
+        <item
+            android:id="@+id/nav_by_preference"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="By Preferences" />-->
+        <item
+            android:id="@+id/nav_by_category"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="By Category" />
+        <item
+            android:id="@+id/nav_by_city"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="By City" />
+        <item
+            android:id="@+id/nav_by_keyword"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="By Keyword" />
+        <item
+            android:id="@+id/nav_by_module"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Free Tender" />
+     <!--   <item
+            android:id="@+id/nav_by_offline"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Offline Tender" />-->
+        <item
+            android:id="@+id/nav_by_faq"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="FAQ" />
+        <item
+            android:id="@+id/nav_by_registration"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Registration" />
+        <item
+            android:id="@+id/nav_by_result"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Tender Results" />
+        <item
+            android:id="@+id/nav_by_corrigerdum"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Tender Corrigendum" />
+        <item
+            android:id="@+id/nav_by_education"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Education" />
+        <item
+            android:id="@+id/nav_by_suggest"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Suggestions" />
+        <item
+            android:id="@+id/nav_by_helpdesk"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Help Desk" />
+        <item
+            android:id="@+id/nav_by_testimonials"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Testimonials" />
+        <item
+            android:id="@+id/nav_by_aboutus"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="About Us" />
+
+    </group>
+</menu>

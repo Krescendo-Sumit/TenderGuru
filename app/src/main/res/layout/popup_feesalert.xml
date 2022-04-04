@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/rounded_corner">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/txt_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/quickbold"
+            android:padding="10dp"
+            android:text="Contact admin to activate this account.Pay fees and use this service \n Rs. 5000 / Year .\n Transfer this amount and share sent payment screenshot with Registered Mobile Number to +91 9673380001 Whatsapp Number.We will activate your account within 12hrs."
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_okay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_corner"
+            android:text="Okay" />
+    </LinearLayout>
+</RelativeLayout>
