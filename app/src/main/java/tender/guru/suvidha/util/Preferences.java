@@ -30,6 +30,8 @@ public class Preferences {
     public static final String TYPE_SEARCHRESULT ="SEARCHRESULT" ;
     public static final String TYPE_SEARCHTYPE = "SerachTypeType";
     public static final String USER_EMAIL = "USER_Email";
+    public static final String KEY_FCM_TOKEN = "FCM_TOKEN";
+    public static final String KEY_FCM_TOKEN_SYNCED = "FCM_KEY_SYNC";
 
     public Preferences(Context context) {
     }

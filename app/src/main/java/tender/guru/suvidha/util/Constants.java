@@ -2,8 +2,7 @@ package tender.guru.suvidha.util;
 
 public class Constants {
 
-  //  public static final String BASE_URL = "http://192.168.225.244/matrimony_app/";
-  //  public static final String BASE_URL = "http://192.168.225.244/matrimony_app/dp/9999.jpg";
+
     public static final String BASE_URL = "http://tenderguru.krescendo.co.in/";
     public static final String INSERTUSER ="insertUser.php" ;
     public static final String VALIDATEFEES ="getIntallmentValidity.php" ;

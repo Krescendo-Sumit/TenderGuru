@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "597524854124",
-    "project_id": "dhyaasonlinelesson",
-    "storage_bucket": "dhyaasonlinelesson.appspot.com"
+    "project_number": "534194940518",
+    "project_id": "tender-guru",
+    "storage_bucket": "tender-guru.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:597524854124:android:1fe1e135ac6d52dfbaef49",
+        "mobilesdk_app_id": "1:534194940518:android:5a14424ed6d3e928b19ba7",
         "android_client_info": {
           "package_name": "tender.guru.suvidha"
         }
       },
       "oauth_client": [
         {
-          "client_id": "597524854124-t5bra2d496siub6vfg3utv1elakfpn17.apps.googleusercontent.com",
+          "client_id": "534194940518-0k981v7cshhi84ege6ii2bfa5245f45q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "tender.guru.suvidha",
+            "certificate_hash": "a39b13edfc2b3ae5c00ba42e0df03658bbd98657"
+          }
+        },
+        {
+          "client_id": "534194940518-tt7qo1ts9s086dt9t4j0bkbvafe0h4an.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBzNfmqmsIwxc_u12Z0TmnmeAWkMwvobY4"
+          "current_key": "AIzaSyByf4bPXCl_tBw2l-ndmuKFLhOpp5Af4mk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "597524854124-t5bra2d496siub6vfg3utv1elakfpn17.apps.googleusercontent.com",
+              "client_id": "534194940518-tt7qo1ts9s086dt9t4j0bkbvafe0h4an.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

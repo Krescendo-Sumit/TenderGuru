@@ -279,6 +279,20 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
                 intent.setClass(context, CorregendamActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.nav_share:
+
+                try {
+                    Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                    shareIntent.setType("text/plain");
+                    shareIntent.putExtra(Intent.EXTRA_SUBJECT, "E-Tender Guru ");
+                    String shareMessage= "\nसुशिक्षित बेरोजगार युवकांना व्यावसायिक प्रशिक्षण देणारे हक्काचे चॅनल.\n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                    shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                    startActivity(Intent.createChooser(shareIntent, "choose one"));
+                } catch(Exception e) {
+                    //e.toString();
+                }
+                break;
 
 
         }
@@ -360,10 +374,13 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
             } else if (type.equals("4")) {
                 data = " where moduleid=" + result;
             }
-            // Toast.makeText(context, data, Toast.LENGTH_SHORT).show();
-            //getBhartiList(data);
-            masterScreenAPI.getTender(mobile,userid,deviceid,data);
+            Preferences.save(context, Preferences.TYPE_SEARCHRESULT,"");
+            if(result.trim().equals(""))
+            {
 
+            }else {
+                masterScreenAPI.getTender(mobile, userid, deviceid, data);
+            }
 
         }
         cnt++;

@@ -18,7 +18,7 @@
             android:title="Add Contract" />
         <item
             android:id="@+id/nav_by_preference"
-            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:icon="@drawable/ic_baseline_navigate_next_24"rijb
             android:title="By Preferences" />-->
         <item
             android:id="@+id/nav_by_category"
@@ -40,10 +40,7 @@
             android:id="@+id/nav_by_offline"
             android:icon="@drawable/ic_baseline_navigate_next_24"
             android:title="Offline Tender" />-->
-        <item
-            android:id="@+id/nav_by_faq"
-            android:icon="@drawable/ic_baseline_navigate_next_24"
-            android:title="FAQ" />
+
         <item
             android:id="@+id/nav_by_registration"
             android:icon="@drawable/ic_baseline_navigate_next_24"
@@ -73,9 +70,18 @@
             android:icon="@drawable/ic_baseline_navigate_next_24"
             android:title="Testimonials" />
         <item
+            android:id="@+id/nav_by_faq"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="FAQ" />
+        <item
             android:id="@+id/nav_by_aboutus"
             android:icon="@drawable/ic_baseline_navigate_next_24"
             android:title="About Us" />
+
+        <item
+            android:id="@+id/nav_share"
+            android:icon="@drawable/ic_baseline_navigate_next_24"
+            android:title="Share App" />
 
     </group>
 </menu>
