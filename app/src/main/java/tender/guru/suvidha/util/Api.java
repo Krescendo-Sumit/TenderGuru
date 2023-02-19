@@ -103,6 +103,9 @@ public interface Api {
     @POST(Constants.GET_TENDER_DETAILS_OFFLINE)
     Call<List<TenderModel>> getTenders_Offline(@Query("mobile") String mobile, @Query("id")String id, @Query("deviceid")String deviceid, @Query("srcString")String srcString);
 
+    @POST(Constants.GET_RESULT)
+    Call<List<TenderModel>> getTendersResult(@Query("mobile") String mobile, @Query("id")String id, @Query("deviceid")String deviceid, @Query("srcString")String srcString);
+
     @POST(Constants.GET_NOTIFICATIONCOUNT)
     Call<String> getNotificatioCount(@Query("mobile") String mobile, @Query("id")String id);
 

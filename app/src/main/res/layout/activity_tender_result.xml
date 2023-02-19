@@ -5,8 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TenderResult">
-    <WebView
-        android:id="@+id/web"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_tenders"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
 </RelativeLayout>
