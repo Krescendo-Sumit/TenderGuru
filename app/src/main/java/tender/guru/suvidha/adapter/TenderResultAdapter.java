@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import tender.guru.suvidha.OtherUserProfile;
 import tender.guru.suvidha.PrizingActivity;
 import tender.guru.suvidha.R;
+import tender.guru.suvidha.ViewPDFResult;
 import tender.guru.suvidha.model.TenderModel;
 import tender.guru.suvidha.util.Preferences;
 
@@ -102,11 +103,11 @@ public class TenderResultAdapter extends  RecyclerView.Adapter<TenderResultAdapt
                 public void onClick(View v) {
 
                    // Toast.makeText(context, "", Toast.LENGTH_SHORT).show();
-
+/*
                     if(bhartiModel.getPaystatus().equals("0"))
                     {
 
-                       /* Dialog dialog=new Dialog(context);
+                       *//* Dialog dialog=new Dialog(context);
                         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
                         dialog.setContentView(R.layout.popup_feesalert);
 
@@ -119,20 +120,20 @@ public class TenderResultAdapter extends  RecyclerView.Adapter<TenderResultAdapt
 
                             }
                         });
-                        dialog.show();*/
+                        dialog.show();*//*
 Intent intent=new Intent(context, PrizingActivity.class);
 context.startActivity(intent);
 
 
-                    }else {
+                    }else {*/
 
 
-                        Preferences.save(context, Preferences.SELECTEDTENDER, bhartiModel.getId());
+                        Preferences.save(context, Preferences.SELECTEDFILE, bhartiModel.getFilepath());
 
-                        Intent intent = new Intent(context, OtherUserProfile.class);
+                        Intent intent = new Intent(context, ViewPDFResult.class);
 
                         context.startActivity(intent);
-                    }
+               //     }
                 }
             });
 

@@ -3,10 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_corregendam.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_free_tenders.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_other_user_profile.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_registration.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_tender_result.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/card_tender_result.xml" value="0.5" />
+        <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/menu/master_screen.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>

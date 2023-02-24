@@ -28,6 +28,7 @@ public class Constants {
     public static final String GET_NOTIFICATIONCOUNT = "getNotificationCount.php";
     public static final String GET_PRIZINGDETAILS = "getPrizingDetails.php";
     public static final String GET_RESULT = "getTenderResult.php";
+    public static final String GET_CORRIGENDUM = "getTenderCorrigendum.php";;
     static final String getTestUrl="index.php";
     static final String COURSE_URL="getCourseList.php";
     static final String SUB_COURSE_URL="getSubCourseList.php";

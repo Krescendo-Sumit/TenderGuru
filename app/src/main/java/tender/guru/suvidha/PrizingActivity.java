@@ -42,7 +42,7 @@ public class PrizingActivity extends AppCompatActivity implements PricingAPI.Res
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prizing);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        setTitle("Membership Prizing");
+        setTitle("Membership Pricing");
         context = PrizingActivity.this;
         pricingAPI = new PricingAPI(context, this);
         web_onemonth = findViewById(R.id.web_onemonth);

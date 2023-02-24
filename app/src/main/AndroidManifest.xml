@@ -42,6 +42,9 @@
             android:name=".RequestProfile"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".ViewPDFResult"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".ProductImageViwer"
             android:screenOrientation="portrait" />
         <activity

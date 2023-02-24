@@ -3,6 +3,7 @@ package tender.guru.suvidha;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import tender.guru.suvidha.util.Constants;
 import tender.guru.suvidha.util.Preferences;
@@ -80,5 +82,15 @@ public class Registration extends AppCompatActivity {
             }
         });
 
+    }
+    public void document(View v)
+    {
+        try{
+            Intent intent=new Intent(context,Suggestions.class);
+            startActivity(intent);
+        }catch (Exception e)
+        {
+            Toast.makeText(context, "Error is "+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 }
