@@ -23,10 +23,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -62,6 +66,7 @@ public class OtherUserProfile extends AppCompatActivity {
 
     String interestedUser = "";
     DownloadManager manager;
+    ImageView imgimage;
 
     TextView txt_title,txt_date,txt_detail,txt_opendate,txt_closedate,txt_amount,txt_city;
 
@@ -102,6 +107,7 @@ public class OtherUserProfile extends AppCompatActivity {
             txt_email = findViewById(R.id.txt_email);
             txt_address = findViewById(R.id.txt_address);
             txt_dhyaasid = findViewById(R.id.txt_dhyassid);
+            imgimage = findViewById(R.id.imgimage);
 
 
             txt_title= findViewById(R.id.txt_title);
@@ -121,6 +127,22 @@ public class OtherUserProfile extends AppCompatActivity {
 
 
             checkValid();
+
+
+            try{
+
+                Glide.with(context)
+                        .load(Constants.BASE_URL + "slide/11.jpg")
+                        .fitCenter()
+                        .diskCacheStrategy( DiskCacheStrategy.NONE )
+                        .skipMemoryCache( true )
+                        .into(imgimage);
+
+            }catch (Exception e)
+            {
+
+            }
+
 
 
         } catch (Exception e) {

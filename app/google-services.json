@@ -1,41 +1,71 @@
 {
   "project_info": {
-    "project_number": "534194940518",
-    "project_id": "tender-guru",
-    "storage_bucket": "tender-guru.appspot.com"
+    "project_number": "508154530808",
+    "firebase_url": "https://managerpro-cafdb.firebaseio.com",
+    "project_id": "managerpro-cafdb",
+    "storage_bucket": "managerpro-cafdb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:534194940518:android:5a14424ed6d3e928b19ba7",
+        "mobilesdk_app_id": "1:508154530808:android:a868e183ed2a9b5b",
         "android_client_info": {
-          "package_name": "tender.guru.suvidha"
+          "package_name": "lawns.president.managerpro"
         }
       },
       "oauth_client": [
         {
-          "client_id": "534194940518-0k981v7cshhi84ege6ii2bfa5245f45q.apps.googleusercontent.com",
+          "client_id": "508154530808-orkkuekhiu1he5dpds65ab25eojigon9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "tender.guru.suvidha",
-            "certificate_hash": "a39b13edfc2b3ae5c00ba42e0df03658bbd98657"
+            "package_name": "lawns.president.managerpro",
+            "certificate_hash": "4f903cfaad3aa788b1a5301cbd6c64f4d8299fa1"
           }
         },
         {
-          "client_id": "534194940518-tt7qo1ts9s086dt9t4j0bkbvafe0h4an.apps.googleusercontent.com",
+          "client_id": "508154530808-6o31pd57nv0vipgbfs9n89ij85m6shmv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyByf4bPXCl_tBw2l-ndmuKFLhOpp5Af4mk"
+          "current_key": "AIzaSyCIPUVcC5MucUV4u7X4WCZHdFWXdH8KTBA"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "534194940518-tt7qo1ts9s086dt9t4j0bkbvafe0h4an.apps.googleusercontent.com",
+              "client_id": "508154530808-6o31pd57nv0vipgbfs9n89ij85m6shmv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:508154530808:android:5eaf63dcb394dd90d1a40d",
+        "android_client_info": {
+          "package_name": "tender.guru.suvidha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "508154530808-6o31pd57nv0vipgbfs9n89ij85m6shmv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIPUVcC5MucUV4u7X4WCZHdFWXdH8KTBA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "508154530808-6o31pd57nv0vipgbfs9n89ij85m6shmv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

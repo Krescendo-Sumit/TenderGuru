@@ -1,11 +1,14 @@
 package tender.guru.suvidha;
 
 import android.Manifest;
+import android.app.AlarmManager;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +29,11 @@ import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,8 +50,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -52,9 +65,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import tender.guru.suvidha.adapter.NoValuesPresentAdapter;
+import tender.guru.suvidha.adapter.SliderAdapterExample;
+import tender.guru.suvidha.adapter.SliderItem;
 import tender.guru.suvidha.adapter.TenderAdapter;
 import tender.guru.suvidha.api_response.MasterScreenAPI;
 import tender.guru.suvidha.model.TenderModel;
+import tender.guru.suvidha.util.Constants;
 import tender.guru.suvidha.util.Preferences;
 import tender.guru.suvidha.util.ResultOutput;
 import tender.guru.suvidha.util.RetrofitClient;
@@ -77,12 +93,17 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
     Button btn_go;
     MasterScreenAPI masterScreenAPI;
     TextView txt_notification_cnt;
-    String mobile,deviceid,userid;
+    String mobile, deviceid, userid;
+    SliderItem images[];
+    SliderView sliderView;
+    SliderAdapterExample adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_master_screen);
+
+        FirebaseMessaging.getInstance().subscribeToTopic("notification");
         context = MasterScreen.this;
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -110,11 +131,11 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-         mobile = Preferences.get(context, Preferences.USER_MOBILE);
-         deviceid = "111";
-         userid = Preferences.get(context, Preferences.USER_ID);
+        mobile = Preferences.get(context, Preferences.USER_MOBILE);
+        deviceid = "111";
+        userid = Preferences.get(context, Preferences.USER_ID);
 
-        masterScreenAPI = new MasterScreenAPI(context,this);
+        masterScreenAPI = new MasterScreenAPI(context, this);
 
         mManager = new LinearLayoutManager(context);
         progressDialog = new ProgressDialog(context);
@@ -132,15 +153,15 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
             @Override
             public void onClick(View view) {
                 String str = et_searchText.getText().toString().trim();
-               // getBhartiList(" where title like '%" + str + "%'");
-                masterScreenAPI.getTender(mobile,userid,deviceid," where title like '%" + str + "%'");
+                // getBhartiList(" where title like '%" + str + "%'");
+                masterScreenAPI.getTender(mobile, userid, deviceid, " where title like '%" + str + "%'");
             }
         });
         View headerView = navigationView.getHeaderView(0);
         txt_slogan = headerView.findViewById(R.id.txt_slogan);
         txt_slogan.setSelected(true);
-        masterScreenAPI.getTender(mobile,userid,deviceid,data);
-        txt_notification_cnt=toolbar.findViewById(R.id.txt_notificationcnt);
+        masterScreenAPI.getTender(mobile, userid, deviceid, data);
+        txt_notification_cnt = toolbar.findViewById(R.id.txt_notificationcnt);
         txt_notification_cnt.setText("");
         showNotificationCount();
         if (isWriteExtStorageAllow()) {
@@ -148,21 +169,69 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
         } else {
             requestStoragePermission();
         }
+        try {
+            myAlarm(9, 30, 10);
+//            myAlarm(15,15,10);
+//            myAlarm(18,1,10);
+//            myAlarm(21,1,10);
+        } catch (Exception e) {
+
+        }
+
+
+        showImageSlide();
+
     }
 
+    private void showImageSlide() {
+        try {
+
+            sliderView = findViewById(R.id.imageSlider);
+            adapter = new SliderAdapterExample(this);
+            images = new SliderItem[4];
+            for (int i = 0; i < images.length; i++)
+            {
+
+                images[i] = new SliderItem();
+                images[i].setImageUrl(Constants.BASE_URL + "slide/" + i + ".jpg");
+                adapter.addItem(images[i]);
+
+            }
+            sliderView.setAnimationCacheEnabled(false);
+            sliderView.setSliderAdapter(adapter);
+            sliderView.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+            sliderView.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+            sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+            sliderView.setIndicatorSelectedColor(Color.WHITE);
+            sliderView.setIndicatorUnselectedColor(Color.GRAY);
+            sliderView.setScrollTimeInSec(3);
+            sliderView.setAutoCycle(true);
+            sliderView.startAutoCycle();
+            sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
+                @Override
+                public void onIndicatorClicked(int position) {
+                    Log.i("GGG", images[position].getId() + " onIndicatorClicked: " + sliderView.getCurrentPagePosition());
+                }
+            });
+        } catch (Exception e) {
+
+        }
+
+    }
+
+
     private void showNotificationCount() {
-    try{
-        String mobile = Preferences.get(context, Preferences.USER_MOBILE);
-        String deviceid = "111";
-        String userid = Preferences.get(context, Preferences.USER_ID);
-        masterScreenAPI.getNotificationCount(mobile,userid);
+        try {
+            String mobile = Preferences.get(context, Preferences.USER_MOBILE);
+            String deviceid = "111";
+            String userid = Preferences.get(context, Preferences.USER_ID);
+            masterScreenAPI.getNotificationCount(mobile, userid);
 //        Toast.makeText(context,"On View Page : "+str,Toast.LENGTH_LONG).show();
 //        txt_notification_cnt.setText(""+str);
 
-    }catch(Exception e)
-    {
-        txt_notification_cnt.setText(""+e.getMessage());
-    }
+        } catch (Exception e) {
+            txt_notification_cnt.setText("" + e.getMessage());
+        }
     }
 
     @Override
@@ -220,7 +289,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
                         if (str.equals("")) {
                             et_text.setError("Please Enter Text.");
                         } else {
-                            masterScreenAPI.getTender(mobile,userid,deviceid," where title like '%" + str + "%'");
+                            masterScreenAPI.getTender(mobile, userid, deviceid, " where title like '%" + str + "%'");
 
                         }
                     }
@@ -285,11 +354,11 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
                     Intent shareIntent = new Intent(Intent.ACTION_SEND);
                     shareIntent.setType("text/plain");
                     shareIntent.putExtra(Intent.EXTRA_SUBJECT, "E-Tender Guru ");
-                    String shareMessage= "\nसुशिक्षित बेरोजगार युवकांना व्यावसायिक प्रशिक्षण देणारे हक्काचे चॅनल.\n\n";
-                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                    String shareMessage = "\nसुशिक्षित बेरोजगार युवकांना व्यावसायिक प्रशिक्षण देणारे हक्काचे चॅनल.\n\n";
+                    shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
                     shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
                     startActivity(Intent.createChooser(shareIntent, "choose one"));
-                } catch(Exception e) {
+                } catch (Exception e) {
                     //e.toString();
                 }
                 break;
@@ -302,63 +371,63 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
         return false;
     }
 
-  /*  private void getBhartiList(String srcString) {
-        try {
+    /*  private void getBhartiList(String srcString) {
+          try {
 
-            if (!progressDialog.isShowing())
-                progressDialog.show();
+              if (!progressDialog.isShowing())
+                  progressDialog.show();
 
-            String mobile = Preferences.get(context, Preferences.USER_MOBILE);
-            String deviceid = "111";
+              String mobile = Preferences.get(context, Preferences.USER_MOBILE);
+              String deviceid = "111";
 
-            String userid = Preferences.get(context, Preferences.USER_ID);
-            ;
-            Call<List<TenderModel>> call = RetrofitClient.getInstance().getMyApi().getTenders(mobile, userid, deviceid, srcString);
-            call.enqueue(new Callback<List<TenderModel>>() {
-                @Override
-                public void onResponse(Call<List<TenderModel>> call, Response<List<TenderModel>> response) {
+              String userid = Preferences.get(context, Preferences.USER_ID);
+              ;
+              Call<List<TenderModel>> call = RetrofitClient.getInstance().getMyApi().getTenders(mobile, userid, deviceid, srcString);
+              call.enqueue(new Callback<List<TenderModel>>() {
+                  @Override
+                  public void onResponse(Call<List<TenderModel>> call, Response<List<TenderModel>> response) {
 
-                    if (progressDialog.isShowing())
-                        progressDialog.dismiss();
-                    //  Toast.makeText(CourseList.this, "Calling..", Toast.LENGTH_SHORT).show();
+                      if (progressDialog.isShowing())
+                          progressDialog.dismiss();
+                      //  Toast.makeText(CourseList.this, "Calling..", Toast.LENGTH_SHORT).show();
 
-                    if (response.body() != null) {
-                        List<TenderModel> videos = response.body();
-                        try {
+                      if (response.body() != null) {
+                          List<TenderModel> videos = response.body();
+                          try {
 
-                            adapter11 = new TenderAdapter((ArrayList) videos, context);
-                            recyclerView_bhartilist.setAdapter(adapter11);
-                            int resId = R.anim.layout_animation_fall_down;
-                            LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context, resId);
-                            recyclerView_bhartilist.setLayoutAnimation(animation);
-                        } catch (NullPointerException e) {
-                            Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        } catch (Exception e) {
-                            Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    } else {
-                        TenderModel t = new TenderModel();
-                        t.setTitle("No Value Found.");
-                        ArrayList arrayList = new ArrayList();
-                        arrayList.add(t);
-                        adapter_Novalue = new NoValuesPresentAdapter((ArrayList) arrayList, context);
-                        ;
-                        recyclerView_bhartilist.setAdapter(adapter_Novalue);
-                    }
-                }
+                              adapter11 = new TenderAdapter((ArrayList) videos, context);
+                              recyclerView_bhartilist.setAdapter(adapter11);
+                              int resId = R.anim.layout_animation_fall_down;
+                              LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(context, resId);
+                              recyclerView_bhartilist.setLayoutAnimation(animation);
+                          } catch (NullPointerException e) {
+                              Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                          } catch (Exception e) {
+                              Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_LONG).show();
+                          }
+                      } else {
+                          TenderModel t = new TenderModel();
+                          t.setTitle("No Value Found.");
+                          ArrayList arrayList = new ArrayList();
+                          arrayList.add(t);
+                          adapter_Novalue = new NoValuesPresentAdapter((ArrayList) arrayList, context);
+                          ;
+                          recyclerView_bhartilist.setAdapter(adapter_Novalue);
+                      }
+                  }
 
-                @Override
-                public void onFailure(Call<List<TenderModel>> call, Throwable t) {
-                    if (progressDialog.isShowing())
-                        progressDialog.dismiss();
-                    Log.e("Error is", t.getMessage());
-                }
-            });
-        } catch (Exception e) {
+                  @Override
+                  public void onFailure(Call<List<TenderModel>> call, Throwable t) {
+                      if (progressDialog.isShowing())
+                          progressDialog.dismiss();
+                      Log.e("Error is", t.getMessage());
+                  }
+              });
+          } catch (Exception e) {
 
-        }
-    }
-*/
+          }
+      }
+  */
     @Override
     protected void onResume() {
         super.onResume();
@@ -374,11 +443,10 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
             } else if (type.equals("4")) {
                 data = " where moduleid=" + result;
             }
-            Preferences.save(context, Preferences.TYPE_SEARCHRESULT,"");
-            if(result.trim().equals(""))
-            {
+            Preferences.save(context, Preferences.TYPE_SEARCHRESULT, "");
+            if (result.trim().equals("")) {
 
-            }else {
+            } else {
                 masterScreenAPI.getTender(mobile, userid, deviceid, data);
             }
 
@@ -443,13 +511,13 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
 
     @Override
     public void onResult(String result) {
-      //  Toast.makeText(context, "From Interface Call."+result, Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(context, "From Interface Call."+result, Toast.LENGTH_SHORT).show();
         txt_notification_cnt.setText(result);
     }
 
     @Override
     public void onListResponce(List result) {
-        try{
+        try {
             List<TenderModel> videos = result;
             try {
                 adapter11 = new TenderAdapter((ArrayList) videos, context);
@@ -462,8 +530,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
             } catch (Exception e) {
                 Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_LONG).show();
             }
-        }catch(Exception e)
-        {
+        } catch (Exception e) {
 
         }
     }
@@ -501,6 +568,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
         //And finally ask for the permission
         ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CALL_PHONE}, 111);
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -511,4 +579,25 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
         }
     }
 
+    public void myAlarm(int hr, int min, int sec) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hr);
+        calendar.set(Calendar.MINUTE, min);
+        calendar.set(Calendar.SECOND, sec);
+
+        if (calendar.getTime().compareTo(new Date()) < 0)
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+        Intent intent = new Intent(getApplicationContext(), NotificationReceiver.class);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+
+        if (alarmManager != null) {
+            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+
+        }
+        Toast.makeText(context, "Alarm Seted", Toast.LENGTH_SHORT).show();
+
+    }
 }
