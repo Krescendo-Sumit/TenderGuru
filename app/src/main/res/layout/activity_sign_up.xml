@@ -410,7 +410,7 @@
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:padding="2dp"
                 android:text="@string/job_bussiness_details"
                 android:textColor="#000000" />
@@ -418,12 +418,12 @@
             <EditText
                 android:id="@+id/et_jobdetails"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:background="@drawable/text_field"
+                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890,"
                 android:ems="10"
                 android:fontFamily="@font/karma_light"
                 android:hint="@string/job_bussiness_details"
-                android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ 1234567890,"
                 android:inputType="textPersonName"
 
                 android:padding="10dp" />

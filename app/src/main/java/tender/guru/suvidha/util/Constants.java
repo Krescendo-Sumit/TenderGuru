@@ -3,7 +3,7 @@ package tender.guru.suvidha.util;
 public class Constants {
 
 
-    public static final String BASE_URL = "http://tenderguru.krescendo.co.in/";
+    public static final String BASE_URL = "http://tenderguru.krescendo.in/";
     public static final String INSERTUSER ="insertUser.php" ;
     public static final String VALIDATEFEES ="getIntallmentValidity.php" ;
     public static final String GETSWARANKUR ="getSwarankur.php" ;
@@ -29,6 +29,8 @@ public class Constants {
     public static final String GET_PRIZINGDETAILS = "getPrizingDetails.php";
     public static final String GET_RESULT = "getTenderResult.php";
     public static final String GET_CORRIGENDUM = "getTenderCorrigendum.php";;
+  public static final String GET_TENDER_CATEGORYLIST ="getCategory.php" ;
+    public static final String ADD_FEVORITES = "addFovorites.php";
     static final String getTestUrl="index.php";
     static final String COURSE_URL="getCourseList.php";
     static final String SUB_COURSE_URL="getSubCourseList.php";
@@ -36,7 +38,9 @@ public class Constants {
     static final String GET_USER_PROFILE="GetUserDetails.php";
     static final String GET_USER_FEES="getFeesDetails.php";
     static final String GET_USER_FILES="getFiles.php";
-    static final String CHECK_LOGIN="LoginCheck.php";
+    //static final String CHECK_LOGIN="LoginCheck.php";
+    static final String CHECK_LOGIN="sendmail/demo.php";
+    static final String VERIFYOTP="VerifyOtp.php";
     static final String CHALUGHADAMODI_MENU_URL="getChaluGhadamodiMasterMenu.php";
     public static final String GET_BOOKS_LIST ="getBooks.php" ;
 }

@@ -18,6 +18,7 @@
         android:theme="@style/Theme.DhyaasOnlineLesson"
         android:usesCleartextTraffic="true">
 
+        <activity android:name=".FavoriteCategory" android:screenOrientation="portrait" android:exported="false"></activity>
         <activity android:name=".DownloadPDF" android:screenOrientation="portrait" android:exported="false"></activity>
         <activity android:name=".CorregendamActivity"  android:screenOrientation="portrait"  android:exported="false"/>
         <activity android:name=".TenderResult"  android:screenOrientation="portrait"  android:exported="false"/>
@@ -41,6 +42,10 @@
             android:theme="@style/Theme.DhyaasOnlineLesson.NoActionBar" />
         <activity
             android:name=".RequestProfile"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VerifyOTPActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

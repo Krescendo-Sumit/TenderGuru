@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name" translatable="false">Tender Guru</string>
-    <string name="login" translatable="false">Login</string>
+    <string name="login" translatable="false">Send OTP</string>
     <string name="newregistration">New Registration</string>
     <string name="select_category">Select Category</string>
     <string name="bride">Self</string>
@@ -22,7 +22,7 @@
     <string name="job_bussiness_address">Job / Bussiness Address</string>
     <string name="monthly_income">Annual income</string>
     <string name="local_current_address">Local/Current Address</string>
-    <string name="permanent_address">Permanent Address</string>
+    <string name="permanent_address">Enter City </string>
     <string name="is_wish_to_see_janm_patrika">Is Wish To See Janm Patrika?</string>
     <string name="are_you_mangal">are you Mangal?</string>
     <string name="art_favolrite_hobbies">Art /Favolrite/Hobbies</string>

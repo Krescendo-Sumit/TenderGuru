@@ -50,6 +50,7 @@ import tender.guru.suvidha.util.Constants;
 import tender.guru.suvidha.util.DownloadTask;
 import tender.guru.suvidha.util.Preferences;
 import tender.guru.suvidha.util.RetrofitClient;
+
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 
@@ -68,7 +69,7 @@ public class OtherUserProfile extends AppCompatActivity {
     DownloadManager manager;
     ImageView imgimage;
 
-    TextView txt_title,txt_date,txt_detail,txt_opendate,txt_closedate,txt_amount,txt_city;
+    TextView txt_title, txt_date, txt_detail, txt_opendate, txt_closedate, txt_amount, txt_city;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +82,7 @@ public class OtherUserProfile extends AppCompatActivity {
         init();
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -96,6 +98,7 @@ public class OtherUserProfile extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
     private void init() {
         try {
 
@@ -108,16 +111,13 @@ public class OtherUserProfile extends AppCompatActivity {
             txt_address = findViewById(R.id.txt_address);
             txt_dhyaasid = findViewById(R.id.txt_dhyassid);
             imgimage = findViewById(R.id.imgimage);
-
-
-            txt_title= findViewById(R.id.txt_title);
-                    txt_date= findViewById(R.id.txt_date);
-            txt_detail= findViewById(R.id.txt_details);
-                    txt_opendate= findViewById(R.id.txt_opendate);
-            txt_closedate= findViewById(R.id.txt_closingdate);
-                    txt_amount= findViewById(R.id.txt_amount);
-            txt_city= findViewById(R.id.txt_city);
-
+            txt_title = findViewById(R.id.txt_title);
+            txt_date = findViewById(R.id.txt_date);
+            txt_detail = findViewById(R.id.txt_details);
+            txt_opendate = findViewById(R.id.txt_opendate);
+            txt_closedate = findViewById(R.id.txt_closingdate);
+            txt_amount = findViewById(R.id.txt_amount);
+            txt_city = findViewById(R.id.txt_city);
 
 
             dp = findViewById(R.id.dp);
@@ -129,34 +129,32 @@ public class OtherUserProfile extends AppCompatActivity {
             checkValid();
 
 
-            try{
+            try {
 
                 Glide.with(context)
                         .load(Constants.BASE_URL + "slide/11.jpg")
                         .fitCenter()
-                        .diskCacheStrategy( DiskCacheStrategy.NONE )
-                        .skipMemoryCache( true )
+                        .diskCacheStrategy(DiskCacheStrategy.NONE)
+                        .skipMemoryCache(true)
                         .into(imgimage);
 
-            }catch (Exception e)
-            {
+            } catch (Exception e) {
 
             }
 
 
-
         } catch (Exception e) {
-            Toast.makeText(context, "Error is "+e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Error is " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void checkValid() {
         try {
 
-            if (CheckConnection.checkInternet(context)){
-              //  Toast.makeText(context, "Calling", Toast.LENGTH_SHORT).show();
-                getUserProfile();}
-            else {
+            if (CheckConnection.checkInternet(context)) {
+                //  Toast.makeText(context, "Calling", Toast.LENGTH_SHORT).show();
+                getUserProfile();
+            } else {
                 //  Toast.makeText(Flash.this, "Please Check Internet Connection", Toast.LENGTH_SHORT).show();
                 Dialog dialog = new Dialog(context);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
@@ -194,14 +192,14 @@ public class OtherUserProfile extends AppCompatActivity {
 
                     if (progressDialog.isShowing())
                         progressDialog.dismiss();
-                   //  Toast.makeText(context, "Size is " + response.body().size(), Toast.LENGTH_SHORT).show();
+                    //  Toast.makeText(context, "Size is " + response.body().size(), Toast.LENGTH_SHORT).show();
                     try {
                         List<TenderModel> MyProfiles = response.body();
 
                         for (TenderModel v : MyProfiles) {
                             interestedUser = v.getId();
                             Log.i("Dp Path", Constants.BASE_URL + "files/" + v.getFilepath());
-                             Preferences.save(context,Preferences.SELECTEDFILE,v.getFilepath());
+                            Preferences.save(context, Preferences.SELECTEDFILE, v.getFilepath());
                             String erurl = Constants.BASE_URL + "dp/noimg.jpg";
 
                             try {
@@ -217,7 +215,8 @@ public class OtherUserProfile extends AppCompatActivity {
                        /*     txt_dhyaasid.setText(" TG-" + v.getId());
                             txt_name.setText(" " + v.getTitle());
                             txt_batch.setText("Open Date :" + v.getOpendate() + " Close Date :" + v.getClosedate());
-                           */ txt_title.setText(v.getTitle());
+                           */
+                            txt_title.setText(v.getTitle());
                             txt_amount.setText(v.getAmount());
                             txt_closedate.setText(v.getClosedate());
                             txt_opendate.setText(v.getOpendate());
@@ -256,7 +255,7 @@ public class OtherUserProfile extends AppCompatActivity {
     public void showinterest(View view) {
 
         showInterest();
-     //   Toast.makeText(context, "Show interest", Toast.LENGTH_SHORT).show();
+        //   Toast.makeText(context, "Show interest", Toast.LENGTH_SHORT).show();
     }
 
     public void chat(View view) {
@@ -268,7 +267,7 @@ public class OtherUserProfile extends AppCompatActivity {
 
 
     public void download(View view) {
-        String fname= Preferences.get(context,Preferences.SELECTEDFILE).toString().trim();
+        String fname = Preferences.get(context, Preferences.SELECTEDFILE).toString().trim();
    /*   //  fname=fname.replace(" ","%20");
         //String pdfurl= Constants.BASE_URL+"files/"+fname;
         String pdfurl= "http://tenderguru.krescendo.co.in/files/01.pdf";
@@ -368,7 +367,7 @@ public class OtherUserProfile extends AppCompatActivity {
             //   uiUpdate.setText("Output : ");
             // Dialog.setMessage("Please Wait ");
             //Dialog.show();
-            Log.i("Start","Start");
+            Log.i("Start", "Start");
         }
 
         // Call after onPreExecute method
@@ -376,7 +375,7 @@ public class OtherUserProfile extends AppCompatActivity {
             try {
 
                 // downloadFileFromServer(fname,furl);
-                Log.i("Start","Start"+urls[0]);
+                Log.i("Start", "Start" + urls[0]);
                 int count;
                 try {
                     URL url = new URL(urls[0]);
@@ -398,8 +397,8 @@ public class OtherUserProfile extends AppCompatActivity {
                     while ((count = input.read(data)) != -1) {
                         total += count;
 
-                       Log.i("-------------------->", lenghtOfFile + "    ------ >" + (int) (total * 100 / lenghtOfFile));
-                      //  publishProgress();
+                        Log.i("-------------------->", lenghtOfFile + "    ------ >" + (int) (total * 100 / lenghtOfFile));
+                        //  publishProgress();
                         output.write(data, 0, count);
                     }
 
@@ -425,7 +424,7 @@ public class OtherUserProfile extends AppCompatActivity {
 
             // Close progress dialog
             // Dialog.dismiss();
-            Log.i("-------------------->", "err"+Error);
+            Log.i("-------------------->", "err" + Error);
 
             if (Error != null) {
 
@@ -444,15 +443,14 @@ public class OtherUserProfile extends AppCompatActivity {
             double bytes = file.length();
             double kilobytes = (bytes / 1024);
 
-            int a = ((int)(kilobytes * 100) / (lenghtOfFile / 1024));
-            Log.i("Status","Done "+a);
-            if (a==100)
-            {Log.i("Status","Done Success");
+            int a = ((int) (kilobytes * 100) / (lenghtOfFile / 1024));
+            Log.i("Status", "Done " + a);
+            if (a == 100) {
+                Log.i("Status", "Done Success");
             }
 
         }
     }
-
 
 
 }

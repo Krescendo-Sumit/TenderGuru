@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.List;
 import java.util.Locale;
 
@@ -33,9 +35,9 @@ import retrofit2.Response;
 public class Signin extends AppCompatActivity {
     ProgressDialog progressDialog;
     Context context;
-    EditText et_mobile, et_pass;
+    EditText et_mobile, et_pass, et_email;
 
-    String uname, pass, deviceid;
+    String uname, pass, deviceid, email;
     Locale myLocale;
 
     @Override
@@ -58,6 +60,7 @@ public class Signin extends AppCompatActivity {
 
         et_mobile = findViewById(R.id.et_uname);
         et_pass = findViewById(R.id.et_pass);
+        et_email = findViewById(R.id.et_email);
         try {
       /*      Resources res = context.getResources();
 // Change locale settings in the app.
@@ -91,7 +94,7 @@ startActivity(refresh);*/
         // refresh your views here
         //  lblLang.setText(R.string.langselection);
         super.onConfigurationChanged(newConfig);
-      //  Toast.makeText(context, "Languange Changed", Toast.LENGTH_SHORT).show();
+        //  Toast.makeText(context, "Languange Changed", Toast.LENGTH_SHORT).show();
 
         // Checks the active language
         if (newConfig.locale == Locale.ENGLISH) {
@@ -106,6 +109,7 @@ startActivity(refresh);*/
 
             uname = et_mobile.getText().toString().trim();
             pass = et_pass.getText().toString().trim();
+            email = et_email.getText().toString().trim();
             deviceid = "111";
 
             if (CheckConnection.checkInternet(Signin.this))
@@ -139,47 +143,33 @@ startActivity(refresh);*/
             if (!progressDialog.isShowing())
                 progressDialog.show();
 
-            Call<List<SignInModel>> call = RetrofitClient.getInstance().getMyApi().checkLogin(uname, pass, deviceid);
-            call.enqueue(new Callback<List<SignInModel>>() {
+            Call<String> call = RetrofitClient.getInstance().getMyApi().checkLogin(uname, pass, deviceid, email);
+            call.enqueue(new Callback<String>() {
                 @Override
-                public void onResponse(Call<List<SignInModel>> call, Response<List<SignInModel>> response) {
+                public void onResponse(Call<String> call, Response<String> response) {
 
                     if (progressDialog.isShowing())
                         progressDialog.dismiss();
-                    if (response.body() != null) {
-                        List<SignInModel> videos = response.body();
+                    try {
+                        JSONObject jsonObject = new JSONObject(response.body());
 
-                        for (SignInModel v : videos) {
-
-                            Preferences.save(context, Preferences.USER_MOBILE, v.getMobile1());
-                            Preferences.save(context, Preferences.USER_ID, v.getId());
-                            Preferences.save(context, Preferences.USER_PROFILE_NAME, v.getFullname());
-                            Preferences.save(context, Preferences.USERCATEGORY, v.getUsercategory());
-                            Preferences.save(context, Preferences.USERSTATUS, v.getUserstatus());
-                            Preferences.save(context, Preferences.USER_EMAIL, v.getEmail());
-
-               
-
-                            //  Log.i("Values For Instale : ",v.getLocaltoken());
-                            //  Preferences.save(context, Preferences.INSTALLID, v.getLocaltoken());
-               /*         Preferences.save(context,Preferences.USERMOBILE,v.getMobile());
-                        Preferences.save(context,Preferences.USERCOURSENAME,v.getCourseid());
-                        Preferences.save(context,Preferences.USERDAYS,v.getDays());
-                        Preferences.save(context,Preferences.USERSUBCOURSE,v.getSubcourse());*/
-
+                        if (jsonObject.getBoolean("sent")) {
+                            Toast.makeText(Signin.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                            finish();
+                            Intent intent = new Intent(context, VerifyOTPActivity.class);
+                            intent.putExtra("mobile",et_mobile.getText().toString().trim());
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(Signin.this, "Something went wrong", Toast.LENGTH_SHORT).show();
                         }
-                        finish();
-                        Intent intent = new Intent(context, MasterScreen.class);
-                        startActivity(intent);
-                    } else {
-                        Toast.makeText(Signin.this, "Please Enter Valid Mobile and Password", Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+
                     }
                 }
 
 
-
                 @Override
-                public void onFailure(Call<List<SignInModel>> call, Throwable t) {
+                public void onFailure(Call<String> call, Throwable t) {
                     if (progressDialog.isShowing())
                         progressDialog.dismiss();
 

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 import tender.guru.suvidha.model.BhartiModel;
+import tender.guru.suvidha.model.CategoryModel;
 import tender.guru.suvidha.model.ChatModel;
 import tender.guru.suvidha.model.ContentModel;
 import tender.guru.suvidha.model.FeesModel;
@@ -42,7 +43,10 @@ public interface Api {
 
 
     @POST(Constants.CHECK_LOGIN)
-    Call<List<SignInModel>> checkLogin(@Query("mobile") String mobile, @Query("pass")String pass, @Query("deviceid")String deviceid);
+    Call<String> checkLogin(@Query("mobile") String mobile, @Query("pass")String pass, @Query("deviceid")String deviceid, @Query("email")String email);
+
+    @POST(Constants.VERIFYOTP)
+    Call<List<SignInModel>> verifyOTP(@Query("mobile") String mobile, @Query("otp")String pass, @Query("deviceid")String deviceid, @Query("email")String email);
 
     @POST(Constants.GET_USER_FEES)
     Call<List<FeesModel>> getFeesDetails(@Query("mobile") String mobile, @Query("id")String id);
@@ -103,6 +107,9 @@ public interface Api {
     @POST(Constants.GET_TENDER_DETAILS_OFFLINE)
     Call<List<TenderModel>> getTenders_Offline(@Query("mobile") String mobile, @Query("id")String id, @Query("deviceid")String deviceid, @Query("srcString")String srcString);
 
+    @POST(Constants.GET_TENDER_CATEGORYLIST)
+    Call<List<CategoryModel>> getTenderCategory(@Query("mobile") String mobile, @Query("id")String id, @Query("deviceid")String deviceid, @Query("srcString")String srcString);
+
     @POST(Constants.GET_RESULT)
     Call<List<TenderModel>> getTendersResult(@Query("mobile") String mobile, @Query("id")String id, @Query("deviceid")String deviceid, @Query("srcString")String srcString);
 
@@ -115,7 +122,12 @@ public interface Api {
     @POST(Constants.GET_PRIZINGDETAILS)
     Call<List<PriceModel>> getPrizingDetails(@Query("mobile") String mobile, @Query("id")String id);
 
-  /*  @POST(Constants.GET_CITIES)
+    @POST(Constants.ADD_FEVORITES)
+    Call<String> addFevorites(@Query("mobile") String mobile,@Query("userid")  String userid,@Query("cataid")  String cataid,@Query("status")  int status);
+
+  /*
+
+    @POST(Constants.GET_CITIES)
     Call<String> getCity(@Query("mobile") String mobile,@Query("userid")  String userid,@Query("type")  String type);
 
     @POST(Constants.GET_KEYWORD)
@@ -123,9 +135,11 @@ public interface Api {
 
     @POST(Constants.GET_CATEGORY)
     Call<String> getCity(@Query("mobile") String mobile,@Query("userid")  String userid,@Query("type")  String type);
-*/
 
-/*
+  */
+
+  /*
+
     @POST(police.bharti.katta.util.Constants.BHARTI_URL_INDIVISUAL)
     Call<List<BhartiModel>> getBhartiMenuDetails(@Query("mobile") String mobile,@Query("id")String id,@Query("type")String type);
 
@@ -138,6 +152,6 @@ public interface Api {
     @POST(police.bharti.katta.util.Constants.GET_BOOKS_LIST)
     Call<List<BookModel>> getBookList(@Body JSONObject jsonObject);
 
-    */
+   */
 
 }

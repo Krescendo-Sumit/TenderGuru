@@ -12,6 +12,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -21,19 +23,22 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
-import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
-import com.smarteist.autoimageslider.SliderAnimations;
-import com.smarteist.autoimageslider.SliderView;
+//import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+//import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
+//import com.smarteist.autoimageslider.SliderAnimations;
+//import com.smarteist.autoimageslider.SliderView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -90,14 +95,15 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
     private long pressedTime;
     String data = "";
     int cnt = 0;
-    Button btn_go;
+    Button btn_go,btn_categories;
     MasterScreenAPI masterScreenAPI;
     TextView txt_notification_cnt;
     String mobile, deviceid, userid;
     SliderItem images[];
-    SliderView sliderView;
+    //SliderView sliderView;
     SliderAdapterExample adapter;
-
+    ImageView imageView;
+    int i=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -149,12 +155,20 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
         Preferences.save(context, Preferences.TYPE_SEARCHRESULT, "");
         et_searchText = findViewById(R.id.et_searchtext);
         btn_go = findViewById(R.id.btn_go);
+        btn_categories = findViewById(R.id.btn_categories);
         btn_go.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String str = et_searchText.getText().toString().trim();
                 // getBhartiList(" where title like '%" + str + "%'");
                 masterScreenAPI.getTender(mobile, userid, deviceid, " where title like '%" + str + "%'");
+            }
+        });
+
+        btn_categories.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MasterScreen.this,FavoriteCategory.class));
             }
         });
         View headerView = navigationView.getHeaderView(0);
@@ -186,7 +200,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
     private void showImageSlide() {
         try {
 
-            sliderView = findViewById(R.id.imageSlider);
+      /*      sliderView = findViewById(R.id.imageSlider);
             adapter = new SliderAdapterExample(this);
             images = new SliderItem[4];
             for (int i = 0; i < images.length; i++)
@@ -212,7 +226,32 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
                 public void onIndicatorClicked(int position) {
                     Log.i("GGG", images[position].getId() + " onIndicatorClicked: " + sliderView.getCurrentPagePosition());
                 }
-            });
+            });*/
+            imageView=findViewById(R.id.imageView);
+
+
+
+            final Handler handler = new Handler(Looper.getMainLooper());
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if(i<4)
+                    {
+                        Glide.with(context)
+                                .load(Constants.BASE_URL + "slide/" + i + ".jpg") // image url
+                                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                                .skipMemoryCache(true)
+                                .into(imageView);
+                        i++;
+                    }else {
+                        i=0;
+                    }
+                    handler.postDelayed(this, 1000*3);
+                    //Do something after 100ms
+
+                }
+            }, 1000*3);
+
         } catch (Exception e) {
 
         }
@@ -308,9 +347,9 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
                 intent.setClass(context, FAQ.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_by_suggest:
+              case R.id.nav_by_suggest:
 
-                intent.setClass(context, Suggestions.class);
+                intent.setClass(context, FavoriteCategory.class);
                 startActivity(intent);
                 break;
             case R.id.nav_by_module:
@@ -328,7 +367,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
                 intent.setClass(context, Testomonial.class);
                 startActivity(intent);
                 break;
-            case R.id.nav_by_education:
+   /*         case R.id.nav_by_education:
 
                 intent.setClass(context, Education.class);
                 startActivity(intent);
@@ -337,7 +376,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
 
                 intent.setClass(context, Registration.class);
                 startActivity(intent);
-                break;
+                break;*/
             case R.id.nav_by_result:
 
                 intent.setClass(context, TenderResult.class);

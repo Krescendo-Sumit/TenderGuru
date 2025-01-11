@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.smarteist.autoimageslider.SliderViewAdapter;
+//import com.smarteist.autoimageslider.SliderViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ import java.util.List;
 import tender.guru.suvidha.R;
 
 
-public class SliderAdapterExample extends
+public class SliderAdapterExample { /*extends
         SliderViewAdapter<SliderAdapterExample.SliderAdapterVH> {
 
     private Context context;
@@ -97,6 +97,6 @@ public class SliderAdapterExample extends
             textViewDescription = itemView.findViewById(R.id.tv_auto_image_slider);
             this.itemView = itemView;
         }
-    }
+    }*/
 
 }

@@ -41,10 +41,10 @@
             android:icon="@drawable/ic_baseline_navigate_next_24"
             android:title="Offline Tender" />-->
 
-        <item
+       <!-- <item
             android:id="@+id/nav_by_registration"
             android:icon="@drawable/ic_baseline_navigate_next_24"
-            android:title="Registration" />
+            android:title="Registration" />-->
         <item
             android:id="@+id/nav_by_result"
             android:icon="@drawable/ic_baseline_navigate_next_24"
@@ -53,14 +53,14 @@
             android:id="@+id/nav_by_corrigerdum"
             android:icon="@drawable/ic_baseline_navigate_next_24"
             android:title="Tender Corrigendum" />
-        <item
+    <!--    <item
             android:id="@+id/nav_by_education"
             android:icon="@drawable/ic_baseline_navigate_next_24"
-            android:title="Education" />
+            android:title="Education" />-->
         <item
             android:id="@+id/nav_by_suggest"
             android:icon="@drawable/ic_baseline_navigate_next_24"
-            android:title="Suggestions" />
+            android:title="Categories" />
         <item
             android:id="@+id/nav_by_helpdesk"
             android:icon="@drawable/ic_baseline_navigate_next_24"
