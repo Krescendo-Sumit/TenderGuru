@@ -388,11 +388,11 @@ String anulaIncome[]={
                 et_qualification.requestFocus();
 
             }
-            if (str_et_jobdetails.isEmpty()) {
+          /*  if (str_et_jobdetails.isEmpty()) {
                 flag++;
                 et_jobdetails.setError("Enter Value");
                 et_jobdetails.requestFocus();
-            }
+            }*/
            /* if (str_et_joblocation.isEmpty()) {
                 flag++;
                 et_joblocation.setError("Enter Value");
@@ -573,7 +573,7 @@ String anulaIncome[]={
                             } else {
 
                                 JSONArray jsonArray = new JSONArray(saravMenuModels.trim());
-                                for (int i = 0; i < jsonArray.length(); i++) {
+                             /*   for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                                     String name = jsonObject.getString("fullname");
                                     String mobile = jsonObject.getString("mobile1");
@@ -592,7 +592,9 @@ String anulaIncome[]={
                                     Intent intent = new Intent(context, MasterScreen.class);
                                     startActivity(intent);
 
-                                }
+                                }*/
+                                if(jsonArray.length()>0)
+                                    finish();
                             }
 
                             } catch(NullPointerException e){

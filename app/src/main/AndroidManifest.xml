@@ -3,8 +3,8 @@
     package="tender.guru.suvidha">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="com.google.android.c2dm.permission.Reciver"></uses-permission>
 
     <application
         android:allowBackup="true"
@@ -17,73 +17,94 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DhyaasOnlineLesson"
         android:usesCleartextTraffic="true">
-        <activity android:name=".DownloadPDF" android:screenOrientation="portrait"></activity>
-        <activity android:name=".CorregendamActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".TenderResult"  android:screenOrientation="portrait"/>
-        <activity android:name=".TestPayment"  android:screenOrientation="portrait"/>
-        <activity android:name=".PaymentActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".Registration"  android:screenOrientation="portrait"/>
-        <activity android:name=".AboutUs"  android:screenOrientation="portrait"/>
-        <activity android:name=".Education"  android:screenOrientation="portrait"/>
-        <activity android:name=".Testomonial"  android:screenOrientation="portrait"/>
-        <activity android:name=".FreeTenders"  android:screenOrientation="portrait"/>
-        <activity android:name=".Notifications"  android:screenOrientation="portrait"/>
-        <activity android:name=".Suggestions"  android:screenOrientation="portrait"/>
-        <activity android:name=".FAQ"  android:screenOrientation="portrait"/>
-        <activity android:name=".HelpDesk"  android:screenOrientation="portrait"/>
-        <activity android:name=".PrizingActivity"  android:screenOrientation="portrait"/>
-        <activity android:name=".SearchingActivity"  android:screenOrientation="portrait"/>
+
+        <activity android:name=".FavoriteCategory" android:screenOrientation="portrait" android:exported="false"></activity>
+        <activity android:name=".DownloadPDF" android:screenOrientation="portrait" android:exported="false"></activity>
+        <activity android:name=".CorregendamActivity"  android:screenOrientation="portrait"  android:exported="false"/>
+        <activity android:name=".TenderResult"  android:screenOrientation="portrait"  android:exported="false"/>
+        <activity android:name=".TestPayment"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".PaymentActivity"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".Registration"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".AboutUs"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".Education"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".Testomonial"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".FreeTenders"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".Notifications"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".Suggestions"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".FAQ"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".HelpDesk"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".PrizingActivity"  android:screenOrientation="portrait" android:exported="false"/>
+        <activity android:name=".SearchingActivity"  android:screenOrientation="portrait" android:exported="false"/>
         <activity
             android:name=".MasterScreen"
             android:label="@string/title_activity_master_screen"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait" android:exported="false"
             android:theme="@style/Theme.DhyaasOnlineLesson.NoActionBar" />
         <activity
             android:name=".RequestProfile"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VerifyOTPActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ViewPDFResult"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ProductImageViwer"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MorePhotoActivity"
+            android:exported="false"
+
             android:screenOrientation="portrait" />
         <activity
             android:name=".Chating"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".OtherUserProfile"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".NewHome"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Home"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"
+            android:exported="false"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".WebViewFileUploadTest"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ErroActivity"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".Video"
+            android:exported="false"
            android:theme="@style/NoActionBar" />
         <activity
             android:name=".Swarankur"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".SignUp"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".Flash"
+
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar"  android:exported="true">
             <intent-filter>
@@ -94,43 +115,56 @@
         </activity>
         <activity
             android:name=".ViewPDF"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MyFIles"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".FeesDetails"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".MyProfile"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".Signin"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".ContentList"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SubCourseList"
+            android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".CourseList"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".MainActivity"
+            android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
 
         <service
             android:name=".MyFirebaseMessagingService"
-            android:stopWithTask="false">
+            android:stopWithTask="false"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+
+        <receiver
+            android:name=".NotificationReceiver" android:exported="false"></receiver>
     </application>
 
 </manifest>

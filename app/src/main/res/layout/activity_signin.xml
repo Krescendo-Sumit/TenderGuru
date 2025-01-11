@@ -110,10 +110,28 @@
                         android:inputType="number"
                         android:maxLength="10"
                         android:padding="15dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:padding="5dp"
+                        android:text="@string/email"
+                        android:textColor="#070707" />
+
+                    <EditText
+                        android:id="@+id/et_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@drawable/text_field"
+                        android:ems="10"
+                        android:fontFamily="@font/karma_light"
+                        android:hint="@string/email"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="10"
+                        android:padding="15dp" />
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:padding="5dp"
                         android:text="@string/enter_password"
                         android:textColor="#070707" />
@@ -121,7 +139,7 @@
                     <EditText
                         android:id="@+id/et_pass"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
                         android:background="@drawable/text_field"
                         android:digits="abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
                         android:ems="10"
@@ -134,12 +152,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:orientation="horizontal"
+                        android:gravity="center"
                         android:padding="10dp">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
 
                             android:text="@string/forget_password" />
 

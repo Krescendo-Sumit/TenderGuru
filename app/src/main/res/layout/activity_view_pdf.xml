@@ -5,16 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ViewPDF">
+
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.github.barteksc.pdfviewer.PDFView
+        <!--        <com.github.barteksc.pdfviewer.PDFView
             android:id="@+id/idPDFView"
             android:layout_width="match_parent"
+            android:layout_height="match_parent" />-->
+
+
+        <WebView
+            android:id="@+id/web"
+            android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
-
     </LinearLayout>
 </RelativeLayout>

@@ -10,7 +10,7 @@ import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.github.barteksc.pdfviewer.PDFView;
+//import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -23,7 +23,7 @@ import tender.guru.suvidha.util.Preferences;
 
 public class ViewPDFResult extends AppCompatActivity {
 String fname="";
-    PDFView pdfView;
+  //  PDFView pdfView;
     RetrivePDFfromUrl UrlRender;
 
     // url of our PDF file.
@@ -41,7 +41,7 @@ String fname="";
         fname= Preferences.get(context,Preferences.SELECTEDFILE).toString().trim();
       //  Toast.makeText(context, ""+fname, Toast.LENGTH_SHORT).show();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        pdfView = findViewById(R.id.idPDFView);
+       // pdfView = findViewById(R.id.idPDFView);
         progressDialog=new ProgressDialog(ViewPDFResult.this);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("Please wait...");
@@ -102,7 +102,7 @@ String fname="";
         protected void onPostExecute(InputStream inputStream) {
             // after the execution of our async
             // task we are loading our pdf in our pdf view.
-            pdfView.fromStream(inputStream).load();
+          //  pdfView.fromStream(inputStream).load();
             progressDialog.dismiss();
         }
     }

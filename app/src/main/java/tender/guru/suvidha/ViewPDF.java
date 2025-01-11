@@ -7,10 +7,17 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
-
-import com.github.barteksc.pdfviewer.PDFView;
+import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
+//import com.github.barteksc.pdfviewer.PDFView;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -23,7 +30,7 @@ import tender.guru.suvidha.util.Preferences;
 
 public class ViewPDF extends AppCompatActivity {
 String fname="";
-    PDFView pdfView;
+   // PDFView pdfView;
     RetrivePDFfromUrl UrlRender;
 
     // url of our PDF file.
@@ -31,6 +38,7 @@ String fname="";
     ProgressDialog progressDialog;
     String filename="";
     Context context;
+    WebView webmenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,15 +49,79 @@ String fname="";
         fname= Preferences.get(context,Preferences.SELECTEDFILE).toString().trim();
       //  Toast.makeText(context, ""+fname, Toast.LENGTH_SHORT).show();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        pdfView = findViewById(R.id.idPDFView);
+        //pdfView = findViewById(R.id.idPDFView);
         progressDialog=new ProgressDialog(ViewPDF.this);
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.setMessage("Please wait...");
         fname= Preferences.get(context,Preferences.SELECTEDFILE).toString().trim();
         pdfurl= Constants.BASE_URL+"files/"+fname;
+        //pdfurl= "files/"+fname;
         Log.i("File URl is ",pdfurl);
         UrlRender=new RetrivePDFfromUrl();
         UrlRender.execute(pdfurl);
+
+        webmenu=findViewById(R.id.web);
+
+
+        webmenu = findViewById(R.id.web);
+        webmenu.getSettings().setJavaScriptEnabled(true);
+        webmenu.getSettings().setDomStorageEnabled(true);
+        String mobile = Preferences.get(context, Preferences.USER_MOBILE);
+
+
+        webmenu.setWebChromeClient(new WebChromeClient());
+        //webmenu.loadUrl(Constants.BASE_URL + "validatepdf.php?name=" + pdfurl);
+        webmenu.loadUrl("https://docs.google.com/gview?embedded=true&url=" + pdfurl);
+        //   Toast.makeText(OrderHistory.this, "Id id " + uid, Toast.LENGTH_LONG).show();
+        webmenu.setWebChromeClient(new WebChromeClient() {
+            public void onProgressChanged(WebView view, int progress) {
+                //Make the bar disappear after URL is loaded, and changes string to Loading...
+                // setTitle("Loading...");
+                setProgress(progress * 100); //Make the bar disappear after URL is loaded
+
+                // Return the app name after finish loading
+
+            }
+        });
+
+        webmenu.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+
+
+                view.loadUrl(url);
+
+                return true; // then it is not handled by default action
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                view.loadUrl("file:///android_asset/ErrorPage.html");
+                // Toast.makeText(MainActivity.this, " Check Internet Connectivity . ", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        webmenu.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    WebView webView = (WebView) v;
+
+                    switch (keyCode) {
+                        case KeyEvent.KEYCODE_BACK:
+                            if (webView.canGoBack()) {
+                                webView.goBack();
+                                return true;
+                            }
+                            break;
+                    }
+                }
+
+                return false;
+            }
+        });
+
+
     }
 
     @Override
@@ -102,7 +174,7 @@ String fname="";
         protected void onPostExecute(InputStream inputStream) {
             // after the execution of our async
             // task we are loading our pdf in our pdf view.
-            pdfView.fromStream(inputStream).load();
+           // pdfView.fromStream(inputStream).load();
             progressDialog.dismiss();
         }
     }
