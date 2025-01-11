@@ -1,20 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/drawable-v24/bg_overlay.xml" value="0.1355" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_corregendam.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_free_tenders.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_other_user_profile.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_registration.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_sign_up.xml" value="0.25" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/activity_tender_result.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/card_tender_result.xml" value="0.5" />
+        <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/image_slider_layout_item.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/layout/nav_header_main.xml" value="0.5" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/menu/activity_main_drawer.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/MYTINAUR001/AndroidStudioProjects/TenderGuru/app/src/main/res/menu/master_screen.xml" value="0.20416666666666666" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="corretto-11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

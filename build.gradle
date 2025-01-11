@@ -3,6 +3,10 @@ buildscript {
     repositories {
         google()
         jcenter()
+        gradlePluginPortal()
+
+        mavenCentral()
+
     }
     dependencies {
         classpath "com.android.tools.build:gradle:4.1.2"
@@ -14,11 +18,16 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven { url "https://jitpack.io"
+        maven {
+            url "http://jcenter.bintray.com"
         }
         maven {
             url "https://s3-ap-southeast-1.amazonaws.com/godel-release/godel/"
         }
+        maven {
+            url 'https://jitpack.io'
+        }
+
     }
 
 }
