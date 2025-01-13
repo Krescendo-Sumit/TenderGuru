@@ -124,6 +124,8 @@ public interface Api {
 
     @POST(Constants.ADD_FEVORITES)
     Call<String> addFevorites(@Query("mobile") String mobile,@Query("userid")  String userid,@Query("cataid")  String cataid,@Query("status")  int status);
+    @POST(Constants.CHECKVERSION)
+    Call<String> checkUpdate(@Query("mobile") String mobile);
 
   /*
 

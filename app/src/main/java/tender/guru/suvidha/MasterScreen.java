@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
@@ -43,6 +44,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.navigation.NavController;
@@ -72,8 +74,10 @@ import retrofit2.Response;
 import tender.guru.suvidha.adapter.NoValuesPresentAdapter;
 import tender.guru.suvidha.adapter.SliderAdapterExample;
 import tender.guru.suvidha.adapter.SliderItem;
+import tender.guru.suvidha.adapter.SubCourseAdapter;
 import tender.guru.suvidha.adapter.TenderAdapter;
 import tender.guru.suvidha.api_response.MasterScreenAPI;
+import tender.guru.suvidha.model.SubCourseModel;
 import tender.guru.suvidha.model.TenderModel;
 import tender.guru.suvidha.util.Constants;
 import tender.guru.suvidha.util.Preferences;
@@ -95,7 +99,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
     private long pressedTime;
     String data = "";
     int cnt = 0;
-    Button btn_go,btn_categories;
+    Button btn_go, btn_categories;
     MasterScreenAPI masterScreenAPI;
     TextView txt_notification_cnt;
     String mobile, deviceid, userid;
@@ -103,7 +107,8 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
     //SliderView sliderView;
     SliderAdapterExample adapter;
     ImageView imageView;
-    int i=0;
+    int i = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -168,7 +173,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
         btn_categories.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MasterScreen.this,FavoriteCategory.class));
+                startActivity(new Intent(MasterScreen.this, FavoriteCategory.class));
             }
         });
         View headerView = navigationView.getHeaderView(0);
@@ -192,7 +197,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
 
         }
 
-
+        checkUpdates();
         showImageSlide();
 
     }
@@ -227,30 +232,28 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
                     Log.i("GGG", images[position].getId() + " onIndicatorClicked: " + sliderView.getCurrentPagePosition());
                 }
             });*/
-            imageView=findViewById(R.id.imageView);
-
+            imageView = findViewById(R.id.imageView);
 
 
             final Handler handler = new Handler(Looper.getMainLooper());
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(i<4)
-                    {
+                    if (i < 4) {
                         Glide.with(context)
                                 .load(Constants.BASE_URL + "slide/" + i + ".jpg") // image url
                                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                                 .skipMemoryCache(true)
                                 .into(imageView);
                         i++;
-                    }else {
-                        i=0;
+                    } else {
+                        i = 0;
                     }
-                    handler.postDelayed(this, 1000*3);
+                    handler.postDelayed(this, 1000 * 3);
                     //Do something after 100ms
 
                 }
-            }, 1000*3);
+            }, 1000 * 3);
 
         } catch (Exception e) {
 
@@ -347,7 +350,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
                 intent.setClass(context, FAQ.class);
                 startActivity(intent);
                 break;
-              case R.id.nav_by_suggest:
+            case R.id.nav_by_suggest:
 
                 intent.setClass(context, FavoriteCategory.class);
                 startActivity(intent);
@@ -559,6 +562,7 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
         try {
             List<TenderModel> videos = result;
             try {
+
                 adapter11 = new TenderAdapter((ArrayList) videos, context);
                 recyclerView_bhartilist.setAdapter(adapter11);
                 int resId = R.anim.layout_animation_fall_down;
@@ -639,4 +643,59 @@ public class MasterScreen extends AppCompatActivity implements NavigationView.On
         Toast.makeText(context, "Alarm Seted", Toast.LENGTH_SHORT).show();
 
     }
+
+
+    private void checkUpdates() {
+        try {
+
+
+            Call<String> call = RetrofitClient.getInstance().getMyApi().checkUpdate(mobile);
+            call.enqueue(new Callback<String>() {
+                @Override
+                public void onResponse(Call<String> call, Response<String> response) {
+                    if (response != null) {
+
+                        //   Toast.makeText(context, "Size is " + response.body().size(), Toast.LENGTH_SHORT).show();
+                        String videos = response.body();
+                        try {
+                            if (videos != null) {
+                                String cv = BuildConfig.VERSION_NAME;
+                                if (!cv.equals(videos)) {
+                                    new AlertDialog.Builder(context).setCancelable(false)
+                                            .setMessage("Please check updates")
+                                            .setPositiveButton("Go to Playstore", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    try {
+                                                        Intent viewIntent =
+                                                                new Intent(Intent.ACTION_VIEW,
+                                                                        Uri.parse("https://play.google.com/store/apps/details?id=tender.guru.suvidha"));
+                                                        viewIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                        startActivity(viewIntent);
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            })
+
+                                            .show();
+                                }
+                            }
+                        } catch (Exception e) {
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<String> call, Throwable t) {
+                    /**/
+
+                    Log.e("Error is", t.getMessage());
+                }
+            });
+        } catch (Exception e) {
+
+        }
+    }
+
 }

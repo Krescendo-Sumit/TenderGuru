@@ -1,10 +1,12 @@
 package tender.guru.suvidha;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -151,18 +153,36 @@ startActivity(refresh);*/
                     if (progressDialog.isShowing())
                         progressDialog.dismiss();
                     try {
-                        JSONObject jsonObject = new JSONObject(response.body());
+                        if (response.body() != null) {
+                            String bb = response.body().toString().trim();
 
-                        if (jsonObject.getBoolean("sent")) {
-                            Toast.makeText(Signin.this, ""+jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
-                            finish();
-                            Intent intent = new Intent(context, VerifyOTPActivity.class);
-                            intent.putExtra("mobile",et_mobile.getText().toString().trim());
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(Signin.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                            if (bb.toLowerCase().contains("user not found")) {
+                                new AlertDialog.Builder(context)
+                                        .setMessage("" + bb)
+                                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .show();
+                            } else {
+                                JSONObject jsonObject = new JSONObject(response.body());
+
+                                if (jsonObject.getBoolean("sent")) {
+                                    Toast.makeText(Signin.this, "" + jsonObject.getString("message"), Toast.LENGTH_SHORT).show();
+                                    finish();
+                                    Intent intent = new Intent(context, VerifyOTPActivity.class);
+                                    intent.putExtra("mobile", et_mobile.getText().toString().trim());
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(Signin.this, "Something went wrong", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                         }
-                    } catch (Exception e) {
+
+                    } catch (
+                            Exception e) {
 
                     }
                 }
@@ -176,7 +196,8 @@ startActivity(refresh);*/
                     Log.e("Error is", t.getMessage());
                 }
             });
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
 
         }
     }

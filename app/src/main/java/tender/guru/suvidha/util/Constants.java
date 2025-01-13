@@ -31,6 +31,7 @@ public class Constants {
     public static final String GET_CORRIGENDUM = "getTenderCorrigendum.php";;
   public static final String GET_TENDER_CATEGORYLIST ="getCategory.php" ;
     public static final String ADD_FEVORITES = "addFovorites.php";
+    public static final String CHECKVERSION = "CheckVersion.php";
     static final String getTestUrl="index.php";
     static final String COURSE_URL="getCourseList.php";
     static final String SUB_COURSE_URL="getSubCourseList.php";

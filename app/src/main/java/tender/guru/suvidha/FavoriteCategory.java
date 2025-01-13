@@ -40,17 +40,22 @@ public class FavoriteCategory extends AppCompatActivity implements CategoryAdapt
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_free_tenders);
-        context= FavoriteCategory.this;
-        mManager = new LinearLayoutManager(context);
-        progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage("Please Wait...");
-        progressDialog.setCanceledOnTouchOutside(false);
-        recyclerView_bhartilist = (RecyclerView) findViewById(R.id.rc_tenders);
-        mManager = new LinearLayoutManager(context);
-        recyclerView_bhartilist.setLayoutManager(mManager);
-        setTitle("Set Category");
-        getBhartiList("");
+        try {
+            setContentView(R.layout.activity_free_tenders);
+            context = FavoriteCategory.this;
+            mManager = new LinearLayoutManager(context);
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage("Please Wait...");
+            progressDialog.setCanceledOnTouchOutside(false);
+            recyclerView_bhartilist = (RecyclerView) findViewById(R.id.rc_tenders);
+            mManager = new LinearLayoutManager(context);
+            recyclerView_bhartilist.setLayoutManager(mManager);
+            setTitle("Set Category");
+            getBhartiList("");
+        }catch (Exception e)
+        {
+            Toast.makeText(context, "Error is "+e.getMessage(), Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void getBhartiList(String srcString) {

@@ -3,6 +3,7 @@ package tender.guru.suvidha;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.List;
@@ -147,34 +149,51 @@ startActivity(refresh);*/
             call.enqueue(new Callback<List<SignInModel>>() {
                 @Override
                 public void onResponse(Call<List<SignInModel>> call, Response<List<SignInModel>> response) {
-
+                     int k=0;
                     if (progressDialog.isShowing())
                         progressDialog.dismiss();
                     if (response.body() != null) {
                         List<SignInModel> videos = response.body();
 
+
+
                         for (SignInModel v : videos) {
 
-                            Preferences.save(context, Preferences.USER_MOBILE, v.getMobile1());
-                            Preferences.save(context, Preferences.USER_ID, v.getId());
-                            Preferences.save(context, Preferences.USER_PROFILE_NAME, v.getFullname());
-                            Preferences.save(context, Preferences.USERCATEGORY, v.getUsercategory());
-                            Preferences.save(context, Preferences.USERSTATUS, v.getUserstatus());
-                            Preferences.save(context, Preferences.USER_EMAIL, v.getEmail());
+                            if(v.getFullname().toLowerCase().contains("otp not match"))
+                            {
+                                k=1;
+                                new AlertDialog.Builder(context)
+                                        .setMessage("" + v.getFullname())
+                                        .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                dialog.dismiss();
+                                            }
+                                        })
+                                        .show();
+                            }else {
 
-               
+                                Preferences.save(context, Preferences.USER_MOBILE, v.getMobile1());
+                                Preferences.save(context, Preferences.USER_ID, v.getId());
+                                Preferences.save(context, Preferences.USER_PROFILE_NAME, v.getFullname());
+                                Preferences.save(context, Preferences.USERCATEGORY, v.getUsercategory());
+                                Preferences.save(context, Preferences.USERSTATUS, v.getUserstatus());
+                                Preferences.save(context, Preferences.USER_EMAIL, v.getEmail());
 
-                            //  Log.i("Values For Instale : ",v.getLocaltoken());
-                            //  Preferences.save(context, Preferences.INSTALLID, v.getLocaltoken());
+
+                                //  Log.i("Values For Instale : ",v.getLocaltoken());
+                                //  Preferences.save(context, Preferences.INSTALLID, v.getLocaltoken());
                /*         Preferences.save(context,Preferences.USERMOBILE,v.getMobile());
                         Preferences.save(context,Preferences.USERCOURSENAME,v.getCourseid());
                         Preferences.save(context,Preferences.USERDAYS,v.getDays());
                         Preferences.save(context,Preferences.USERSUBCOURSE,v.getSubcourse());*/
-
+                            }
                         }
-                        finish();
-                        Intent intent = new Intent(context, MasterScreen.class);
-                        startActivity(intent);
+                        if(k==0) {
+                            finish();
+                            Intent intent = new Intent(context, MasterScreen.class);
+                            startActivity(intent);
+                        }
                     } else {
                         Toast.makeText(VerifyOTPActivity.this, "Please Enter Valid Mobile and Password", Toast.LENGTH_SHORT).show();
                     }
